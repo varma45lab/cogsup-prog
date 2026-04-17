@@ -4,12 +4,12 @@ from expyriment.misc.constants import C_GREY, C_BLACK, K_LEFT, K_RIGHT, K_SPACE
 
 control.set_develop_mode(True)
 
+# add trials to each block  ; circle position 
+
 # Experiment
 
 exp = design.Experiment(name="Circle Test")
 exp.add_data_variable_names(["Subject", "Blocks", "Circle Condition", "Reaction Time", "Key Press", "Accuracy"])
-
-
 control.initialize(exp)
 
 # Instructions
@@ -42,7 +42,7 @@ def run_trial(side):
         square.position = left_side
         correct_key = K_RIGHT
     else:
-        raise ValueError()
+        raise ValueError("Error")
 
     # Fixation
     fixation.present()
@@ -62,8 +62,8 @@ def run_trial(side):
     feedback = stimuli.TextLine(
         text=f"{feedback_text}   RT: {rt} ms",
         text_size=32,
-        text_colour=feedback_colour)
-    
+        text_colour=feedback_colour,)
+
     feedback.present()
     exp.clock.wait(1000)
 
@@ -81,7 +81,7 @@ blocks = ["deterministic","stochastic"]
 random.shuffle(blocks)
 
 for block_trial in blocks:
-    block_screen= stimuli.TextLine(text="Block")
+    block_screen= stimuli.TextLine(text="Press SPACE to start the trial")
     block_screen.present()
     exp.keyboard.wait(K_SPACE)
     
